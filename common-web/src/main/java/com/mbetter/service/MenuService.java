@@ -11,4 +11,6 @@ public interface MenuService {
 	void saveRoleData(RoleVO roleVO);
 
 	RoleVO getRoleMenuesForDepartment(String department);
+
+	String getOptionsForMenuAndSubMenu(long menu, long submenu,String department);
 }

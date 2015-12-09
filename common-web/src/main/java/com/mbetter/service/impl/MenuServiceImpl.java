@@ -64,13 +64,11 @@ public class MenuServiceImpl implements MenuService {
 		List<MenuVO> menuVoList = new ArrayList<MenuVO>();
 		for (MenuMaster master : menus) {
 			MenuVO menuVO = new MenuVO();
-			menuVO.setMenuName(master.getMenuName());
-			menuVO.setId(master.getMenuId());
+			populateMenuVO(menuVO, master);
 			List<SubMenuVO> subMenuVOs = new ArrayList<SubMenuVO>();
 			for (SubMenuMaster subMenuMaster : master.getSubMenus()) {
 				SubMenuVO subMenuVO = new SubMenuVO();
-				subMenuVO.setMenuName(subMenuMaster.getMenuName());
-				subMenuVO.setId(subMenuMaster.getMenuId());
+				populateSubMenuVO(subMenuVO, subMenuMaster);
 				subMenuVOs.add(subMenuVO);
 			}
 			menuVO.setSubMenus(subMenuVOs);
@@ -156,14 +154,13 @@ public class MenuServiceImpl implements MenuService {
 				MenuMaster menuMaster = roleMaster.getMenu();
 				MenuVO menuVO = getOrCreateMenu(menuMaster.getMenuName(),
 						menuMap);
-				menuVO.setId(menuMaster.getMenuId());
+				populateMenuVO(menuVO, menuMaster);
 				List<SubMenuVO> subMenuVOs = menuVO.getSubMenus() == null ? new ArrayList<SubMenuVO>()
 						: menuVO.getSubMenus();
 				if (roleMaster.getSubMenu() != null) {
 					SubMenuMaster subMenuMaster = roleMaster.getSubMenu();
 					SubMenuVO subMenuVO = new SubMenuVO();
-					subMenuVO.setMenuName(subMenuMaster.getMenuName());
-					subMenuVO.setId(subMenuMaster.getMenuId());
+					populateSubMenuVO(subMenuVO, subMenuMaster);
 					String options = roleMaster.getOptions();
 					if (options != null) {
 						for (String option : options.split(",")) {
@@ -206,5 +203,28 @@ public class MenuServiceImpl implements MenuService {
 				: menuMap.get(menuName);
 		menuMap.put(menuName, menuVO);
 		return menuVO;
+	}
+
+	private void populateMenuVO(MenuVO menuVO, MenuMaster master) {
+		menuVO.setMenuName(master.getMenuName());
+		menuVO.setId(master.getMenuId());
+		menuVO.setIsPageRedirect(master.isPageRedirect());
+		menuVO.setRedirectPageName(master.getRedirectPageName());
+	}
+
+	private void populateSubMenuVO(SubMenuVO subMenuVO,
+			SubMenuMaster subMenuMaster) {
+		subMenuVO.setMenuName(subMenuMaster.getMenuName());
+		subMenuVO.setId(subMenuMaster.getMenuId());
+		subMenuVO.setIsPageRedirect(subMenuMaster.isPageRedirect());
+		subMenuVO.setRedirectPageName(subMenuMaster.getRedirectPageName());
+	}
+
+	@Override
+	public String getOptionsForMenuAndSubMenu(long menu, long submenu,
+			String department) {
+		RoleMaster roleMaster = roleRepository.getOptionsForMenuAndSubMenu(
+				menuRepository.findOne(menu), subMenuRepository.findOne(submenu), department);
+		return roleMaster.getOptions();
 	}
 }

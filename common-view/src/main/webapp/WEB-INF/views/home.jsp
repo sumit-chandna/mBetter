@@ -4,68 +4,96 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <c:set var="contextpath" value="${pageContext.request.contextPath}" />
-<form:form method="POST" commandName="role" action="mockRoleCreate">
-	<form:select path="userRole">
-		<form:option value="doctor">Doctor</form:option>
-		<form:option value="lab">Lab</form:option>
-		<form:option value="reception">Reception</form:option>
-	</form:select>
-	<div>
-		<ul>
-			<c:forEach var="menu" items="${role.menus}" varStatus="x">
-				<li><form:label path="menus[${x.index }].menuName">${menu.menuName}</form:label>
-					<c:choose>
-						<c:when test="${not empty menu.subMenus}">
-							<ul>
-								<c:forEach var="subMenu" items="${menu.subMenus}" varStatus="y">
-									<li><form:label
-											path="menus[${x.index }].subMenus[${y.index }].menuName">${subMenu.menuName}</form:label>
-										<div>
-											<div class="checkbox">
-												<label>ADD <form:checkbox
-														path="menus[${x.index }].subMenus[${y.index }].add"
-														value="Add" /></label>
-											</div>
-											<div class="checkbox">
-												<label>VIEW <form:checkbox
-														path="menus[${x.index }].subMenus[${y.index }].view"
-														value="view" /></label>
-											</div>
-											<div class="checkbox">
-												<label>DELETE <form:checkbox
-														path="menus[${x.index }].subMenus[${y.index }].delete"
-														value="delete" />
-												</label>
-											</div>
-											<form:hidden
-												path="menus[${x.index }].subMenus[${y.index }].menuName" />
-											<form:hidden
-												path="menus[${x.index }].subMenus[${y.index }].id" /></li>
-								</c:forEach>
-							</ul>
-						</c:when>
-						<c:otherwise>
-							<div>
-								<div class="checkbox">
-									<label>ADD<form:checkbox path="menus[${x.index }].add"
-											value="Add" />
-									</label>
+<script type="text/javascript">
+	$(document).ready(function() {
+		$("#add").click(function() {
+			$("#menuCreateUpdatForm").toggle();
+		});
+		$("#view").click(function() {
+			$("#menuCreateUpdatForm").toggle();
+		});
+		$("label").click(function() {
+			console.log($(this));
+			console.log($(this).children().find('div').first().show());
+			$(this).next().find('div').first().toggle();
+		});
+	});
+</script>
+<c:if test="${add }">
+	<button name="Add" id="add">add</button>
+</c:if>
+<c:if test="${view }">
+	<button name="view" id="view">view</button>
+</c:if>
+<c:if test="${delete }">
+	<button name="delete" id="delete">Delete</button>
+</c:if>
+<div id="menuCreateUpdatForm" style="display: none;">
+	<form:form method="POST" commandName="role" action="mockRoleCreate">
+		<form:select path="userRole">
+			<form:option value="doctor">Doctor</form:option>
+			<form:option value="lab">Lab</form:option>
+			<form:option value="reception">Reception</form:option>
+		</form:select>
+		<div>
+			<ul>
+				<c:forEach var="menu" items="${role.menus}" varStatus="x">
+					<li><form:label path="menus[${x.index }].menuName">${menu.menuName}</form:label>
+						<c:choose>
+							<c:when test="${not empty menu.subMenus}">
+								<div>
+									<ul>
+										<c:forEach var="subMenu" items="${menu.subMenus}"
+											varStatus="y">
+											<li><form:label
+													path="menus[${x.index }].subMenus[${y.index }].menuName">${subMenu.menuName}</form:label>
+												<div>
+													<div class="checkbox">
+														<label>ADD <form:checkbox
+																path="menus[${x.index }].subMenus[${y.index }].add"
+																value="Add" /></label>
+													</div>
+													<div class="checkbox">
+														<label>VIEW <form:checkbox
+																path="menus[${x.index }].subMenus[${y.index }].view"
+																value="view" /></label>
+													</div>
+													<div class="checkbox">
+														<label>DELETE <form:checkbox
+																path="menus[${x.index }].subMenus[${y.index }].delete"
+																value="delete" />
+														</label>
+													</div>
+													<form:hidden
+														path="menus[${x.index }].subMenus[${y.index }].menuName" />
+													<form:hidden
+														path="menus[${x.index }].subMenus[${y.index }].id" /></li>
+										</c:forEach>
+									</ul>
 								</div>
-								<div class="checkbox">
-									<label>VIEW<form:checkbox
-											path="menus[${x.index }].view" value="view" />
-									</label>
+							</c:when>
+							<c:otherwise>
+								<div>
+									<div class="checkbox">
+										<label>ADD<form:checkbox path="menus[${x.index }].add"
+												value="Add" />
+										</label>
+									</div>
+									<div class="checkbox">
+										<label>VIEW<form:checkbox
+												path="menus[${x.index }].view" value="view" />
+										</label>
+									</div>
+									<div class="checkbox">
+										<label>DELETE<form:checkbox
+												path="menus[${x.index }].delete" value="delete" />
+										</label>
+									</div>
 								</div>
-								<div class="checkbox">
-									<label>DELETE<form:checkbox
-											path="menus[${x.index }].delete" value="delete" />
-									</label>
-								</div>
-							</div>
-						</c:otherwise>
-					</c:choose> <form:hidden path="menus[${x.index }].menuName" /> <form:hidden
-						path="menus[${x.index }].id" /></li>
-			</c:forEach>
+							</c:otherwise>
+						</c:choose> <form:hidden path="menus[${x.index }].menuName" /> <form:hidden
+							path="menus[${x.index }].id" /></li>
+				</c:forEach>
 
 		</ul>
 	</div>

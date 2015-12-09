@@ -20,7 +20,10 @@ public class SpringSecurityUserContext implements UserContext {
 	public UserData getCurrentUser() {
 		SecurityContext securityContext = SecurityContextHolder.getContext();
 		Authentication authentication = securityContext.getAuthentication();
-		if (authentication == null) {
+		if (authentication == null
+				|| (authentication.getPrincipal() instanceof String && "anonymousUser"
+						.equalsIgnoreCase((String) authentication
+								.getPrincipal()))) {
 			return null;
 		}
 		return (UserData) authentication.getPrincipal();

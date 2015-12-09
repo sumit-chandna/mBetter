@@ -8,6 +8,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.mbetter.domain.UserData;
 import com.mbetter.model.RoleVO;
@@ -39,12 +40,25 @@ public class WelcomeController {
 		return userContext;
 	}
 
-	@RequestMapping(method = { RequestMethod.GET })
-	public String homePage(HttpServletRequest request, ModelMap model) {
+	@ModelAttribute("department")
+	public String department() {
+		return getUserDepartmentInContext();
+	}
+
+	@ModelAttribute("rolemenus")
+	public RoleVO prepareRoles() {
+		String department = getUserDepartmentInContext();
+		if ("".equalsIgnoreCase(department)) {
+			return null;
+		} else
+			return menuService.getRoleMenuesForDepartment(department);
+	}
+
+	private String getUserDepartmentInContext() {
 		UserData user = userContext.getCurrentUser();
+		String department = "";
 		if (user != null) {
 			String email = user.getEmail();
-			String department = "";
 			if (email.contains("admin")) {
 				department = "admin";
 			} else if (email.contains("doctor")) {
@@ -56,33 +70,33 @@ public class WelcomeController {
 			} else if (email.contains("pharmacy")) {
 				department = "pharmacy";
 			}
-			model.addAttribute("department", department);
-			model.addAttribute("rolemenus",
-					menuService.getRoleMenuesForDepartment(department));
 		}
+		return department;
+	}
+
+	@RequestMapping(method = { RequestMethod.GET })
+	public String homePage(HttpServletRequest request, ModelMap model) {
 		return "index";
 	}
 
-	@RequestMapping(method = { RequestMethod.GET }, value = "createRoles")
-	public String createRole(HttpServletRequest request, ModelMap model) {
-		UserData user = userContext.getCurrentUser();
-		if (user != null) {
-			String email = user.getEmail();
-			String department = "";
-			if (email.contains("admin")) {
-				department = "admin";
-			} else if (email.contains("doctor")) {
-				department = "doctor";
-			} else if (email.contains("reception")) {
-				department = "reception";
-			} else if (email.contains("lab")) {
-				department = "lab";
-			} else if (email.contains("pharmacy")) {
-				department = "pharmacy";
+	@RequestMapping(method = { RequestMethod.GET }, value = "manageRoles")
+	public String createRole(HttpServletRequest request, ModelMap model,
+			@RequestParam(value = "menu") long menu,
+			@RequestParam(value = "submenu") long submenu) {
+		String options = menuService.getOptionsForMenuAndSubMenu(menu, submenu,
+				getUserDepartmentInContext());
+		if (options != null) {
+			for (String option : options.split(",")) {
+				if ("add".equalsIgnoreCase(option)) {
+					model.addAttribute("add", true);
+				} else if ("delete".equalsIgnoreCase(option)) {
+					model.addAttribute("delete", true);
+				} else if ("view".equalsIgnoreCase(option)) {
+					model.addAttribute("view", true);
+				}
 			}
-			model.addAttribute("department", department);
-			model.addAttribute("role", createRole());
 		}
+		model.addAttribute("role", createRole());
 		return "home";
 	}
 

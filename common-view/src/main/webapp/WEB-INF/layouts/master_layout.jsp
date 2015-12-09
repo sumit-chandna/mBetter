@@ -39,51 +39,40 @@
 	<div class="row">
 		<div class="menuBar" id='cssmenu'>
 			<ul>
+
 				<li><a href='#'><span>Home</span></a></li>
-				<li class='active has-sub'><a href='#'><span>User
-							Roles</span></a>
-					<ul>
-						<li><a href='createRoles'><span>create</span></a></li>
-						<li><a href='#'><span>update</span></a></li>
-					</ul></li>
 				<li><a href='#'><span>About</span></a></li>
+
+				<c:forEach var="sideBarMenu" items="${rolemenus.menus}">
+
+					<c:choose>
+						<c:when test="${sideBarMenu.isPageRedirect}">
+							<li><a
+								href='${sideBarMenu.redirectPageName}?menu=${sideBarMenu.id}'>${sideBarMenu.menuName}</span></a></li>
+						</c:when>
+						<c:otherwise>
+							<li class='has-sub'><a href='#'><span>${sideBarMenu.menuName}</span></a>
+								<ul>
+									<c:choose>
+										<c:when test="${not empty sideBarMenu.subMenus}">
+											<c:forEach var="sideBarSubMenu"
+												items="${sideBarMenu.subMenus}">
+												<c:choose>
+													<c:when test="${sideBarSubMenu.isPageRedirect}">
+														<li><a
+															href='${contextpath}/${sideBarSubMenu.redirectPageName}?menu=${sideBarMenu.id}&submenu=${sideBarSubMenu.id}'>${sideBarSubMenu.menuName}</span></a></li>
+													</c:when>
+												</c:choose>
+											</c:forEach>
+										</c:when>
+									</c:choose>
+								</ul></li>
+						</c:otherwise>
+					</c:choose>
+
+				</c:forEach>
 				<li><span></span></li>
 				<li class='last'><a href='#'><span>Contact</span></a></li>
-				<c:forEach var="menu" items="${rolemenus.menus}">
-
-					<li class='has-sub'><a href='#'><span>${menu.menuName}</span></a>
-						<ul>
-							<c:choose>
-								<c:when test="${not empty menu.subMenus}">
-									<c:forEach var="subMenu" items="${menu.subMenus}">
-										<li class='has-sub'><a href='#'><span>${subMenu.menuName}</span></a>
-											<ul>
-												<c:if test="${subMenu.add}">
-													<li><a href='#'><span>Add</span></a></li>
-												</c:if>
-												<c:if test="${subMenu.delete}">
-													<li><a href='#'><span>Delete</span></a></li>
-												</c:if>
-												<c:if test="${subMenu.view}">
-													<li><a href='#'><span>View</span></a></li>
-												</c:if>
-											</ul></li>
-									</c:forEach>
-								</c:when>
-								<c:otherwise>
-									<c:if test="${menu.add}">
-										<li><a href='#'><span>Add</span></a></li>
-									</c:if>
-									<c:if test="${menu.delete}">
-										<li><a href='#'><span>Delete</span></a></li>
-									</c:if>
-									<c:if test="${menu.view}">
-										<li><a href='#'><span>View</span></a></li>
-									</c:if>
-								</c:otherwise>
-							</c:choose>
-						</ul></li>
-				</c:forEach>
 			</ul>
 		</div>
 		<div class=data>

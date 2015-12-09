@@ -16,7 +16,9 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "ROLE_MASTER")
-@NamedQueries(value = { @NamedQuery(name = "RoleMaster.getAllRolesByDepartment", query = "select r from RoleMaster r where r.userRole=:department") })
+@NamedQueries(value = {
+		@NamedQuery(name = "RoleMaster.getAllRolesByDepartment", query = "select r from RoleMaster r where r.userRole=:department"),
+		@NamedQuery(name = "RoleMaster.getOptionsForMenuAndSubMenu", query = "select r from RoleMaster r where r.menu=:menu and r.subMenu=:submenu and r.userRole=:department") })
 public class RoleMaster implements Serializable {
 	/**
 	 * 
