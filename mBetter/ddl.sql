@@ -98,3 +98,6 @@ CREATE TABLE "USER_DATA"
   TABLESPACE "USERS" ;
   
  
+create table GENMST_DEPARTMENT (NUM_DEPT_CD integer not null auto_increment, CREATED_BY varchar(255), TXT_DEPT_NAME varchar(255) not null, DAT_END_DATE datetime, DAT_INSERT_DATE datetime, IS_ACTIVE varchar(255), MODIFIED_BY varchar(255), DAT_MODIFY_DATE datetime, NUM_MODIFY_ID integer, NUM_INSERT_ID integer, DAT_START_DATE datetime, TABINDX integer not null, primary key (NUM_DEPT_CD))
+create table GENMST_DROPDOWN (DROPDOWN_ID integer not null auto_increment, CREATED_BY varchar(255), DROPDOWN_TEXT varchar(255) not null, DROPDOWN_TYPE varchar(255) not null, DROPDOWN_VALUE varchar(255) not null, DAT_END_DATE datetime, DAT_INSERT_DATE datetime, IS_ACTIVE varchar(255), MODIFIED_BY varchar(255), DAT_MODIFY_DATE datetime, NUM_MODIFY_ID integer, NUM_INSERT_ID integer, DAT_START_DATE datetime, primary key (DROPDOWN_ID))
+create table GENMST_SUB_DEPARTMENT (NUM_SUB_DEPT_CD integer not null auto_increment, CREATED_BY varchar(255), NUM_DEPT_CD integer not null, DAT_END_DATE datetime, DAT_INSERT_DATE datetime, IS_ACTIVE varchar(255), MODIFIED_BY varchar(255), DAT_MODIFY_DATE datetime, NUM_MODIFY_ID integer, NUM_INSERT_ID integer, DAT_START_DATE datetime, TXT_SUB_DEPT_NAME varchar(255) not null, TABINDX integer not null, primary key (NUM_SUB_DEPT_CD))

@@ -15,4 +15,22 @@ Insert into SUB_MENU_MASTER (SUB_MENU_ID,INSERT_DATE,INSERT_ID,ACTIVE,IS_PAGE_RE
 
 Insert into ROLE_MASTER (ROLE_ID,INSERT_DATE,INSERT_ID,ACTIVE,MENU_ID,MENU_INDEX,MODIFY_BY,MODIFY_DATE,MODIFY_ID,OPTIONS,SUB_MENU_ID,SUB_MENU_INDEX,USER_ROLE) values (1,null,null,1,1,1,null,null,null,'add,view,delete',1,1,'admin');
 
+insert into GENMST_DROPDOWN values(null,1,"On Roll","employeeType","1",null,null,'y',null,null,null,null,null);
+insert into GENMST_DROPDOWN values(null,1,"Probation","employeeType","2",null,null,'y',null,null,null,null,null);
+insert into GENMST_DROPDOWN values(null,1,"Permanent","employeeType","3",null,null,'y',null,null,null,null,null);
+insert into GENMST_DROPDOWN values(null,1,"Inactive","employeeType","4",null,null,'n',null,null,null,null,null);
+insert into GENMST_department values(1,'1','OPD',null,null,'y',null,null,null,null,null,1);
+insert into GENMST_department values(2,'1','ENT',null,null,'y',null,null,null,null,null,1);
+insert into GENMST_department values(3,'1','Physician',null,null,'y',null,null,null,null,null,1);
+insert into GENMST_department values(4,'1','Allergy',null,null,'y',null,null,null,null,null,1);
+insert into GENMST_sub_department values(null,'1',1,null,null,'y',null,null,null,null,null,'Diabeties',1);
+insert into GENMST_sub_department values(null,'1',1,null,null,'y',null,null,null,null,null,'Fever',1);
+insert into GENMST_sub_department values(null,'1',1,null,null,'y',null,null,null,null,null,'Cold',1);
+insert into GENMST_sub_department values(null,'1',1,null,null,'y',null,null,null,null,null,'Aches',1);
+insert into GENMST_sub_department values(null,'1',2,null,null,'y',null,null,null,null,null,'Ear Ache',1);
+insert into GENMST_sub_department values(null,'1',2,null,null,'y',null,null,null,null,null,'Throat Ache',1);
+insert into GENMST_sub_department values(null,'1',2,null,null,'y',null,null,null,null,null,'Nose Problem',1);
+insert into GENMST_sub_department values(null,'1',3,null,null,'y',null,null,null,null,null,'TB',1);
+insert into GENMST_sub_department values(null,'1',3,null,null,'y',null,null,null,null,null,'Malaria',1);
+insert into GENMST_sub_department values(null,'1',4,null,null,'y',null,null,null,null,null,'Itching',1);
 

@@ -14,12 +14,19 @@
 		transaction-manager="transactionManager" />
 	<jpa:repositories base-package="com.mbetter.repositories" />
 	<context:component-scan base-package="com.mbetter" />
+	<!-- <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"> 
+		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"></property> 
+		<property name="url" value="jdbc:oracle:thin:@localhost:1521:orcl"></property> 
+		<property name="username" value="Mbetter"></property> <property name="password" 
+		value="Mbetter"></property> </bean> -->
+
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
-		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"></property>
-		<property name="url" value="jdbc:oracle:thin:@localhost:1521:orcl"></property>
-		<property name="username" value="Mbetter"></property>
-		<property name="password" value="Mbetter"></property>
+		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+		<property name="url" value="jdbc:mysql://localhost:3306/mbetterdb" />
+		<property name="username" value="root" />
+		<property name="password" value="Passw0rd" />
 	</bean>
+
 	<bean class="org.springframework.orm.jpa.JpaTransactionManager"
 		id="transactionManager">
 		<property name="entityManagerFactory" ref="entityManagerFactory" />
@@ -32,11 +39,13 @@
 		<property name="jpaVendorAdapter">
 			<bean id="jpaAdapter"
 				class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
-				<property name="database" value="ORACLE" />
-				<property name="showSql" value="false" />
+				<property name="database" value="MYSQL" />
+				<property name="showSql" value="true" />
 				<property name="generateDdl" value="true" />
 			</bean>
 		</property>
+
+		<!-- <property name="jpaDialect" value="MySQL5InnoDBDialect"/> -->
 
 		<property name="jpaProperties">
 			<props>
@@ -45,4 +54,21 @@
 			</props>
 		</property>
 	</bean>
+
+	<!-- Locale Changes -->
+
+	<bean id="localeResolver"
+		class="org.springframework.web.servlet.i18n.SessionLocaleResolver">
+		<property name="defaultLocale" value="en" />
+	</bean>
+	
+	<bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+		<property name="basenames">
+			<list>
+				<value>/WEB-INF/messages/messages</value>
+			</list>
+		</property>
+		<property name="defaultEncoding" value="UTF-8" />
+	</bean>
+
 </beans>

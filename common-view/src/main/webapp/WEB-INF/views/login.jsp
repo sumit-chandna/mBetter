@@ -25,5 +25,12 @@
 					value="Login" />
 			</div>
 		</form>
+		
+		
+		<c:url value="/login/createUser" var="createUserUrl" />
+		<div>
+				<a href="${createUserUrl}"> Create Account</a>
+			</div>
+		
 	</div>
 </div>
