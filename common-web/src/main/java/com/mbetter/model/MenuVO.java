@@ -17,7 +17,7 @@ public class MenuVO {
 	private List<SubMenuVO> subMenus = new ArrayList<SubMenuVO>();
 	private Boolean add;
 	private Boolean view;
-	private Boolean delete;
+	private Boolean update;
 	private long id;
 	private Integer menuIndex;
 	private Boolean isPageRedirect;
@@ -63,12 +63,12 @@ public class MenuVO {
 		this.view = view;
 	}
 
-	public Boolean getDelete() {
-		return delete;
+	public Boolean getUpdate() {
+		return update;
 	}
 
-	public void setDelete(Boolean delete) {
-		this.delete = delete;
+	public void setUpdate(Boolean update) {
+		this.update = update;
 	}
 
 	public Integer getMenuIndex() {

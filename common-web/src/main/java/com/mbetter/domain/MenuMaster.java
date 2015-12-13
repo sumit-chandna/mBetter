@@ -11,11 +11,14 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "MENU_MASTER")
+@NamedQueries(value = { @NamedQuery(name = "MenuMaster.getAllActiveMenu", query = "select m from MenuMaster m where m.isActive=true order by menuIndex") })
 public class MenuMaster implements Serializable {
 
 	/**

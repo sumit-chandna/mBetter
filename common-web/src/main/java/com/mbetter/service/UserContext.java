@@ -30,4 +30,6 @@ public interface UserContext {
 	 *             if the {@link UserData} is null.
 	 */
 	void setCurrentUser(UserData user);
+
+	String getUserDepartmentInContext();
 }

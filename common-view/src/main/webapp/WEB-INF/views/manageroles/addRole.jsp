@@ -4,36 +4,15 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <c:set var="contextpath" value="${pageContext.request.contextPath}" />
-<script type="text/javascript">
-	$(document).ready(function() {
-		$("#add").click(function() {
-			$("#menuCreateUpdatForm").toggle();
-		});
-		$("#view").click(function() {
-			$("#menuCreateUpdatForm").toggle();
-		});
-		$("label").click(function() {
-			console.log($(this));
-			console.log($(this).children().find('div').first().show());
-			$(this).next().find('div').first().toggle();
-		});
-	});
-</script>
-<c:if test="${add }">
-	<button name="Add" id="add">add</button>
-</c:if>
-<c:if test="${view }">
-	<button name="view" id="view">view</button>
-</c:if>
-<c:if test="${delete }">
-	<button name="delete" id="delete">Delete</button>
-</c:if>
-<div id="menuCreateUpdatForm" style="display: none;">
-	<form:form method="POST" commandName="role" action="mockRoleCreate">
-		<form:select path="userRole">
-			<form:option value="doctor">Doctor</form:option>
-			<form:option value="lab">Lab</form:option>
-			<form:option value="reception">Reception</form:option>
+<c:set var="requestpath"
+	value="${requestScope['javax.servlet.forward.request_uri']}" />
+<div id="menuCreateForm">
+	<form:form method="POST" commandName="role"
+		action="${requestpath }/mockRoleCreate">
+		Roles: <form:select path="userRole">
+			<c:forEach var="availableRole" items="${availableRoles}">
+				<form:option value="${availableRole}">${availableRole}</form:option>
+			</c:forEach>
 		</form:select>
 		<div>
 			<ul>
@@ -59,9 +38,9 @@
 																value="view" /></label>
 													</div>
 													<div class="checkbox">
-														<label>DELETE <form:checkbox
-																path="menus[${x.index }].subMenus[${y.index }].delete"
-																value="delete" />
+														<label>UPDATE <form:checkbox
+																path="menus[${x.index }].subMenus[${y.index }].update"
+																value="update" />
 														</label>
 													</div>
 													<form:hidden
@@ -85,8 +64,8 @@
 										</label>
 									</div>
 									<div class="checkbox">
-										<label>DELETE<form:checkbox
-												path="menus[${x.index }].delete" value="delete" />
+										<label>UPDATE<form:checkbox
+												path="menus[${x.index }].update" value="update" />
 										</label>
 									</div>
 								</div>
@@ -95,8 +74,9 @@
 							path="menus[${x.index }].id" /></li>
 				</c:forEach>
 
-		</ul>
-	</div>
+			</ul>
+		</div>
 
-	<input value="Submit" type="submit">
-</form:form>
+		<input value="Submit" type="submit">
+	</form:form>
+</div>

@@ -13,6 +13,7 @@ import com.mbetter.repositories.employee.subdepartment.EmployeeSubDepartmentRepo
 
 /**
  * Controller for New User Login Form
+ * 
  * @author manikmalhotra
  *
  */
@@ -65,6 +66,11 @@ public class NewUserRegistrationController {
 				empSubDeptRepo.getAllSubDepartments(1));
 
 		return "/users/newUserRegistration";
+	}
+
+	@RequestMapping("/save")
+	public String saveNewUser(RegisterForm registerForm) {
+		return "redirect:/";
 	}
 
 }

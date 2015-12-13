@@ -8,9 +8,6 @@ import com.mbetter.model.RoleVO;
 public interface MenuService {
 	List<MenuVO> getAllMenus();
 
-	void saveRoleData(RoleVO roleVO);
-
-	RoleVO getRoleMenuesForDepartment(String department);
-
+	
 	String getOptionsForMenuAndSubMenu(long menu, long submenu,String department);
 }

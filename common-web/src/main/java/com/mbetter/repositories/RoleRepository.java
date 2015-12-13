@@ -14,7 +14,12 @@ public interface RoleRepository extends JpaRepository<RoleMaster, Serializable> 
 	List<RoleMaster> getAllRolesByDepartment(
 			@Param("department") String department);
 
-	RoleMaster getOptionsForMenuAndSubMenu(@Param("menu") MenuMaster menu,
+	RoleMaster getRoleMasterForMenuAndSubMenu(@Param("menu") MenuMaster menu,
 			@Param("submenu") SubMenuMaster subMenu,
 			@Param("department") String department);
+
+	RoleMaster getRoleMasterForMenuAndNoSubMenu(@Param("menu") MenuMaster menu,
+			@Param("department") String department);
+
+	List<String> getDistinctRoles();
 }

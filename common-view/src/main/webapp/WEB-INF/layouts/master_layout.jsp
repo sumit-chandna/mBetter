@@ -47,8 +47,21 @@
 
 					<c:choose>
 						<c:when test="${sideBarMenu.isPageRedirect}">
-							<li><a
-								href='${sideBarMenu.redirectPageName}?menu=${sideBarMenu.id}'>${sideBarMenu.menuName}</span></a></li>
+							<li class='has-sub'><a href='#'><span>${sideBarMenu.menuName}</span></a>
+								<ul>
+									<c:if test="${sideBarMenu.add==true}">
+										<li><a
+											href='${contextpath}/${sideBarMenu.redirectPageName}?menu=${sideBarMenu.id}&option=add'>Add</span></a></li>
+									</c:if>
+									<c:if test="${sideBarMenu.view==true}">
+										<li><a
+											href='${contextpath}/${sideBarMenu.redirectPageName}?menu=${sideBarMenu.id}&option=view'>View</span></a></li>
+									</c:if>
+									<c:if test="${sideBarMenu.update==true}">
+										<li><a
+											href='${contextpath}/${sideBarMenu.redirectPageName}?menu=${sideBarMenu.id}&option=update'>Update</span></a></li>
+									</c:if>
+								</ul></li>
 						</c:when>
 						<c:otherwise>
 							<li class='has-sub'><a href='#'><span>${sideBarMenu.menuName}</span></a>
@@ -59,8 +72,21 @@
 												items="${sideBarMenu.subMenus}">
 												<c:choose>
 													<c:when test="${sideBarSubMenu.isPageRedirect}">
-														<li><a
-															href='${contextpath}/${sideBarSubMenu.redirectPageName}?menu=${sideBarMenu.id}&submenu=${sideBarSubMenu.id}'>${sideBarSubMenu.menuName}</span></a></li>
+														<li class='has-sub'><a href='#'><span>${sideBarSubMenu.menuName}</span></a>
+															<ul>
+																<c:if test="${sideBarSubMenu.add==true}">
+																	<li><a
+																		href='${contextpath}/${sideBarSubMenu.redirectPageName}?menu=${sideBarMenu.id}&submenu=${sideBarSubMenu.id}&option=add'>Add</span></a></li>
+																</c:if>
+																<c:if test="${sideBarSubMenu.view==true}">
+																	<li><a
+																		href='${contextpath}/${sideBarSubMenu.redirectPageName}?menu=${sideBarMenu.id}&submenu=${sideBarSubMenu.id}&option=view'>View</span></a></li>
+																</c:if>
+																<c:if test="${sideBarSubMenu.update==true}">
+																	<li><a
+																		href='${contextpath}/${sideBarSubMenu.redirectPageName}?menu=${sideBarMenu.id}&submenu=${sideBarSubMenu.id}&option=update'>Update</span></a></li>
+																</c:if>
+															</ul></li>
 													</c:when>
 												</c:choose>
 											</c:forEach>

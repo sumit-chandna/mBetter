@@ -5,9 +5,18 @@ public class SubMenuVO {
 	private String menuName;
 	private Boolean add;
 	private Boolean view;
-	private Boolean delete;
+	private Boolean update;
 	private Integer menuIndex;
 	private Boolean isPageRedirect;
+
+	public Boolean getUpdate() {
+		return update;
+	}
+
+	public void setUpdate(Boolean update) {
+		this.update = update;
+	}
+
 	private String redirectPageName;
 
 	public Boolean getAdd() {
@@ -24,14 +33,6 @@ public class SubMenuVO {
 
 	public void setView(Boolean view) {
 		this.view = view;
-	}
-
-	public Boolean getDelete() {
-		return delete;
-	}
-
-	public void setDelete(Boolean delete) {
-		this.delete = delete;
 	}
 
 	public long getId() {

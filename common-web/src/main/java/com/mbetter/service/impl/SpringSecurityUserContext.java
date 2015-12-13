@@ -38,4 +38,24 @@ public class SpringSecurityUserContext implements UserContext {
 		SecurityContextHolder.getContext().setAuthentication(authentication);
 	}
 
+	@Override
+	public String getUserDepartmentInContext() {
+		UserData user = getCurrentUser();
+		String department = "";
+		if (user != null) {
+			String email = user.getEmail();
+			if (email.contains("admin")) {
+				department = "admin";
+			} else if (email.contains("doctor")) {
+				department = "doctor";
+			} else if (email.contains("reception")) {
+				department = "reception";
+			} else if (email.contains("lab")) {
+				department = "lab";
+			} else if (email.contains("pharmacy")) {
+				department = "pharmacy";
+			}
+		}
+		return department;
+	}
 }

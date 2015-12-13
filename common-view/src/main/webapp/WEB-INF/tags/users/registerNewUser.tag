@@ -2,12 +2,15 @@
 
 <%@ tag language="java" pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="formElement" tagdir="/WEB-INF/tags/formElement"%>
+<c:set var="contextpath" value="${pageContext.request.contextPath}" />
 <div>
+	${contextpath}
 	<table>
-		<form:form method="post" action="/save" class="form-horizontal"
-			autocomplete="off" modelAttribute="RegisterForm">
+		<form:form method="post" action="${contextpath}/login/save"
+			class="form-horizontal" autocomplete="off"
+			modelAttribute="RegisterForm">
 
 			<tr>
 				<td width="33%"><formElement:formInputBox idKey="employeeCode"
